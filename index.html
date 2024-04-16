@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Website</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/f6385c19b2.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="header">
+    <div class="container">
+        <nav>
+            <img src="logo.png" alt="logo" width="150" height="150">
+            <ul id="sidemenu">
+                <li><a href="#header">Home</a></li>
+                <li><a href="#About">About</a></li>
+                <li><a href="#Contact">Contact</a></li>
+                <i class="fa-solid fa-xmark" onclick="closemenu()"></i>
+            </ul>
+            <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+        </nav>
+        <div class="header-text">
+            <p>Hi, I'm Robert Pandele,</p>
+            <h1>Welcome to my Website!</h1>
+        </div>
+    </div>
+</div>
+<!-- About -->
+<div id="About">
+    <div class="container">
+        <div class="row">
+            <div class="about-col-1">
+                <img src="About_Me.png">
+            </div>
+            <div class="about-col-2">
+                <h1 class="sub-title">About Me</h1>
+                <p>Hi!</p>
+                <p>I am a person drawn to adventure and exploration, with three particular passions in life: travel, technology and sports. 
+                    I love discovering new places and diverse cultures while traveling the world. 
+                    I am often fascinated by the latest technological innovations and how they influence the way we live and interact. 
+                    I also like to keep my body fit and my mind sharp by playing sports, whether it's football, swimming or cycling. 
+                    These passions define me and inspire me to constantly seek new experiences and challenges. That's why over the past year I learned how to code and I've created my own blog.</p>
+                <p>PS: My long term goal is to become a DevOps Engineer. Wish me luck!</p>
+                
+            <div class="tab-titles">
+                <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
+                <p class="tab-links" onclick="opentab('experience')">Experience</p>
+                </div>
+                <div class="tab-contents active-tab" id="skills">
+                    <ul>
+                        <li>Python</li>
+                        <li>GIT</li>
+                        <li>Linux</li>
+                        <li>CI/CD</li>
+                        <li>SQL</li>
+                        <li>AWS</li>
+                    </ul>
+                </div>
+                <div class="tab-contents" id="experience"> <!-- This is for Experience -->
+                    <ul>
+                        <li>DevOps projects</li>
+                        <li>QC Testing for Ubisoft Romania</li>
+                        <li>Created my own website from 0</li>
+                        <li>Writing Articles for my blog</li>
+                        <li>Video and Photo editing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Services-->
+
+<div id="services">
+    <div class="container">
+        <h1 class="sub-title">My Services</h1>
+        <div class="services-list">
+            <div>
+                <i class="fa-solid fa-code"></i>
+                <h2>Back-End Development</h2>
+            </div>
+            <div>
+                <i class="fa-solid fa-code"></i>
+                <h2>Manual & Automation Testing</h2>
+            </div>
+            <div>
+                <i class="fa-brands fa-uncharted"></i>
+                <h2>DevOps</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--------Contact--------->
+<div id="Contact">
+    <div class="container">
+        <div class="row">
+            <div class="contact-left">
+                <h1 class="sub-title">Contact Me</h1>
+                <p><i class="fa-solid fa-envelope"></i> robertcristian12@yahoo.com</p>
+                <p><i class="fa-solid fa-phone"></i> +40738218131</p>
+                <div class="social-icons">
+                    <a href="https://linkedin.com/in/pandele-robert-56484316a"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://github.com/Kapahala26"><i class="fa-brands fa-github"></i></a>
+                </div>
+                <a href="Resume.pdf" download class="button">Download Resume</a>
+            </div>
+            <div class="contact-right">
+                <form name="submit-to-google-sheet">
+                    <input type="text" name="Name" placeholder="Your Name" required>
+                    <input type="email" name="Email" placeholder="Your Email" required>
+                    <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
+                    <button type="submit" class="button">Submit</button>
+                </form>
+                <span id="message"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var tablinks = document.getElementsByClassName("tab-links")
+    var tabcontents = document.getElementsByClassName("tab-contents")
+    
+    function opentab(tabname){
+        for(tablink of tablinks){
+            tablink.classList.remove("active-link");
+        }
+        for(tabcontent of tabcontents){
+            tabcontent.classList.remove("active-tab");
+        }
+        event.currentTarget.classList.add("active-link");
+        document.getElementById(tabname).classList.add("active-tab");
+    }
+
+</script>
+
+<script>
+    var sidemenu = document.getElementById("sidemenu");
+
+    function openmenu(){
+        sidemenu.style.right = "0";
+    }
+    function closemenu(){
+        sidemenu.style.right = "-200px";
+    }
+
+</script>
+
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzgiIpPSv9m6515est12B3FWij4kivw38-V7hi7SgRiL5fM88wjOHyZMcZYH7J1I0On/exec'
+    const form = document.forms['submit-to-google-sheet']
+    const message = document.getElementById("message")
+  
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+            message.innerHTML = "Message sent successfully"
+            setTimeout(function(){
+                message.innerHTML = ""
+            },5000)
+            form.reset()
+        })
+        .catch(error => console.error('Error!', error.message))
+    })
+  </script>
+
+</body>
+</html>
